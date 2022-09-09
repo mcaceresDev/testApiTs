@@ -10,14 +10,12 @@ const dbOptions = {
     dialect:  process.env.SERVER_DB_DIALECT || 'mysql',
     dialectOptions: {
         bigNumberStrings: true
-    },
-    logging: true,
+    }
 };
 
 const db = new Sequelize(dbOptions.database, dbOptions.username, dbOptions.password, {
     host: dbOptions.host,
     dialect: 'mysql', //dbOptions.dialect
-    logging: dbOptions.logging
 });
 
 export default db

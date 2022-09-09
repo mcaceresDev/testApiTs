@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 // modelos
-import Category from '../models/category.model'
+import Category, { CategoryOuput } from '../models/category.model'
 
 class CategoryController {
 
@@ -8,18 +8,21 @@ class CategoryController {
     getAll = async (req: Request, res: Response) => {
 
         try {
+            let response = {}
             const data = await Category.findAll()
 
             if (data.length > 0) {
-                res.send({status: 200, data})
+                response = {status: 200, data}
             } 
-
-            return res.send({status: 404, message: "No hay registros"});
-            // return res.json(rpta);
+            else{
+                response = {status: 404, message: "No hay registros"}
+            }
+            
+            res.send(response)
 
         } catch (Err: any) {
             console.log(Err);            
-            return res.send({status:500, message: "Server Error"});
+            res.send({status:500, message: "Server Error"});
         }
     }
 
